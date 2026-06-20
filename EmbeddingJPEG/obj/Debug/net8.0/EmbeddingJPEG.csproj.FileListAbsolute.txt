@@ -1,0 +1,14 @@
+C:\Users\Oleg\Desktop\EmbeddingJPEG\obj\Debug\net8.0\EmbeddingJPEG.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Oleg\Desktop\EmbeddingJPEG\obj\Debug\net8.0\EmbeddingJPEG.AssemblyInfoInputs.cache
+C:\Users\Oleg\Desktop\EmbeddingJPEG\obj\Debug\net8.0\EmbeddingJPEG.AssemblyInfo.cs
+C:\Users\Oleg\Desktop\EmbeddingJPEG\obj\Debug\net8.0\EmbeddingJPEG.csproj.CoreCompileInputs.cache
+C:\Users\Oleg\Desktop\EmbeddingJPEG\bin\Debug\net8.0\EmbeddingJPEG.exe
+C:\Users\Oleg\Desktop\EmbeddingJPEG\bin\Debug\net8.0\EmbeddingJPEG.deps.json
+C:\Users\Oleg\Desktop\EmbeddingJPEG\bin\Debug\net8.0\EmbeddingJPEG.runtimeconfig.json
+C:\Users\Oleg\Desktop\EmbeddingJPEG\bin\Debug\net8.0\EmbeddingJPEG.dll
+C:\Users\Oleg\Desktop\EmbeddingJPEG\bin\Debug\net8.0\EmbeddingJPEG.pdb
+C:\Users\Oleg\Desktop\EmbeddingJPEG\obj\Debug\net8.0\EmbeddingJPEG.dll
+C:\Users\Oleg\Desktop\EmbeddingJPEG\obj\Debug\net8.0\refint\EmbeddingJPEG.dll
+C:\Users\Oleg\Desktop\EmbeddingJPEG\obj\Debug\net8.0\EmbeddingJPEG.pdb
+C:\Users\Oleg\Desktop\EmbeddingJPEG\obj\Debug\net8.0\EmbeddingJPEG.genruntimeconfig.cache
+C:\Users\Oleg\Desktop\EmbeddingJPEG\obj\Debug\net8.0\ref\EmbeddingJPEG.dll
