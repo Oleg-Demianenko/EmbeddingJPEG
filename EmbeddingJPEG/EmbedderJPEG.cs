@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -201,6 +201,53 @@ namespace EmbeddingJPEG
                     coeffIndex++;
                 }
                 blocks[1, b] = sum;
+            }
+            return blocks;
+        }
+        /// <summary>
+        /// Метод, собирающий блоки контейнера из младших бит коэффициентов.
+        /// Набирает последовательности блоков, распределённые по рабочей области,
+        /// в количестве равном числу копий сообщения
+        /// </summary>
+        /// <param name="coeffs">Массив коэффициентов рабочей области</param>
+        /// <param name="blockCount">Количество блоков контейнера</param>
+        /// <returns>Массив блоков контейнера, разделённый на две зоны</returns>
+        private int[,] CollectContainerBlocks(int[,] coeffs, int blockCount, int copiesCount)
+        {
+            int[,] blocks = new int[2, blockCount * copiesCount];
+            int gapBase = 0;
+            int gapRem = 0;
+            if (copiesCount > 1)
+            {
+                gapBase = (maxBlockCount - blockCount * copiesCount) / (copiesCount - 1);
+                gapRem = (maxBlockCount - blockCount * copiesCount) % (copiesCount - 1);
+            }
+            int coeffIndex = 0;
+            int sum;
+            for (int cop = 0; cop < copiesCount; cop++)
+            {
+                for (int b = 0; b < blockCount; b++)
+                {
+                    sum = 0;
+                    for (int k = 0; k < 15; k++)
+                    {
+                        sum = (sum << 1) | (coeffs[0, coeffIndex] == 1 ? 1 : 0);
+                        coeffIndex++;
+                    }
+                    blocks[0, cop * blockCount + b] = sum;
+                    sum = 0;
+                    for (int k = 0; k < 7; k++)
+                    {
+                        sum = (sum << 1) | (Math.Abs(coeffs[0, coeffIndex]) & 1);
+                        coeffIndex++;
+                    }
+                    blocks[1, cop * blockCount + b] = sum;
+                }
+                if (gapRem > 0)
+                    coeffIndex += (gapBase + 1) * 22;
+                else
+                    coeffIndex += gapBase * 22;
+                gapRem--;
             }
             return blocks;
         }
@@ -861,11 +908,8 @@ namespace EmbeddingJPEG
             blockCount = (int)Math.Ceiling(message.Length * 8.0 / 11.0) + 4;
             // Извлекаем пригодные для встраивания коэффициенты
             int[,] coeffs = SelectDCTCoeffs(DCTCoeffs, maxBlockCount);
-            for (int i = 0; i < coeffs.GetLength(1); i++)
-                if (coeffs[0, i] == 0)
-                    Console.WriteLine(i);
             // Формируем из коэффициентов бинарные блоки контейнера
-            int[,] containerBlocks = CollectContainerBlocks(coeffs, blockCount);
+            int[,] containerBlocks = CollectContainerBlocks(coeffs, blockCount, copiesCount);
             byte[] messageBytes = MessageBytes(message);
             // Формируем бинарные блоки сообщения
             int[,] messageBlocks = GetMessageBlocks(messageBytes, blockCount, copiesCount);
@@ -878,5 +922,5 @@ namespace EmbeddingJPEG
             // Записываем новые данные в изображение
             image.WriteNewData(newDCTCoeffs, newFilename);
         }
-    }
+    }    
 }
